@@ -1,0 +1,20 @@
+[
+  "ret_1",
+  "ret_2",
+  "ret_3",
+  "ret_5",
+  "ret_10",
+  "volume_change_1",
+  "hl_range",
+  "oc_return",
+  "rsi_14",
+  "macd_pct",
+  "macd_signal_pct",
+  "macd_hist_pct",
+  "ma5_dist",
+  "ma10_dist",
+  "ma20_dist",
+  "volatility_10",
+  "volatility_20",
+  "day_of_week"
+]

@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body { @apply bg-ground text-ink font-sans antialiased; font-variant-numeric: tabular-nums; }
+button:focus-visible, a:focus-visible, select:focus-visible { @apply outline-none ring-2 ring-up ring-offset-2 ring-offset-ground; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

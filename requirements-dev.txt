@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest>=8,<9
+ruff>=0.7
+# Optional FinBERT sentiment (FINBERT_ENABLED=true); large download:
+# transformers>=4.44
+# torch>=2.4

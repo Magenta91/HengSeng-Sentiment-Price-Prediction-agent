@@ -1,0 +1,88 @@
+{
+  "model_name": "random_forest",
+  "model_version": "20261110-0938",
+  "training_date": "2026-11-10T09:38:22.796730+00:00",
+  "target": "next_return",
+  "horizon": "next_trading_session",
+  "feature_set": "market_only",
+  "feature_columns": [
+    "ret_1",
+    "ret_2",
+    "ret_3",
+    "ret_5",
+    "ret_10",
+    "volume_change_1",
+    "hl_range",
+    "oc_return",
+    "rsi_14",
+    "macd_pct",
+    "macd_signal_pct",
+    "macd_hist_pct",
+    "ma5_dist",
+    "ma10_dist",
+    "ma20_dist",
+    "volatility_10",
+    "volatility_20",
+    "day_of_week"
+  ],
+  "feature_schema_version": "1.0.0",
+  "allows_missing_values": true,
+  "date_ranges": {
+    "train": [
+      "2016-03-03",
+      "2022-07-27"
+    ],
+    "validation": [
+      "2022-07-28",
+      "2024-09-12"
+    ],
+    "test": [
+      "2024-09-13",
+      "2026-11-06"
+    ]
+  },
+  "data_coverage": {
+    "symbols": [
+      "0700.HK",
+      "9988.HK",
+      "0005.HK",
+      "1299.HK",
+      "3690.HK",
+      "005930.KS",
+      "000660.KS",
+      "005380.KS",
+      "373220.KS",
+      "068270.KS"
+    ],
+    "period": [
+      "2016-03-03",
+      "2026-11-06"
+    ],
+    "bars_per_symbol": {
+      "0700.HK": 2672,
+      "9988.HK": 1710,
+      "0005.HK": 2672,
+      "1299.HK": 2672,
+      "3690.HK": 2000,
+      "005930.KS": 2655,
+      "000660.KS": 2655,
+      "005380.KS": 2655,
+      "373220.KS": 1165,
+      "068270.KS": 2655
+    },
+    "historical_sentiment": null
+  },
+  "validation_strategy": "expanding-window walk-forward (5 folds, min 250 dates) on train+validation; final single evaluation on untouched chronological test period",
+  "selected_by": "walk-forward MAE",
+  "beats_zero_return_baseline_walk_forward": false,
+  "package_versions": {
+    "python": "3.13.18",
+    "scikit-learn": "1.6.1",
+    "xgboost": "3.4.1",
+    "pandas": "2.2.3",
+    "numpy": "2.4.6"
+  },
+  "artifact_file": "random_forest_model.joblib",
+  "artifact_sha256": "7c9302f47155b4dcc4e3f10c47cb7a01f572b4b72b84fb30022848f3c7e1ff23",
+  "limitations": "Daily next-session return model. Out-of-sample metrics describe the test period only and do not guarantee future performance."
+}

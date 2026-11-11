@@ -1,0 +1,16 @@
+# Version ranges, not exact pins: they could not be resolved/installed in the offline build environment.
+# After your first successful install run `pip freeze > requirements.lock` and commit that for reproducibility.
+fastapi>=0.115,<1
+uvicorn[standard]>=0.32,<1
+pydantic>=2.9,<3
+pydantic-settings>=2.6,<3
+sqlalchemy>=2.0.36,<2.1
+psycopg[binary]>=3.2,<4
+httpx>=0.27,<1
+pandas>=2.2,<4
+numpy>=1.26,<3
+scikit-learn==1.6.1       # Exact version - model trained with 1.6.1
+xgboost>=2.1,<4
+joblib>=1.4,<2
+yfinance>=0.2.50,<2       # only needed when MARKET_DATA_PROVIDER=yfinance
+google-genai>=0.2,<1      # Google Gemini API (new official SDK)

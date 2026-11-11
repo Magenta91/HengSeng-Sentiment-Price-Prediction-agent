@@ -1,0 +1,142 @@
+{
+  "_comment": "Tickers, aliases and sources are CONFIGURATION. Confirm the five assets per exchange for your assignment. Social sources ship DISABLED with no actor_id: they are placeholders until you select an Apify actor, run it once, and fill in input_template + field_map from its real dataset output. Holidays are not bundled; add ISO dates per exchange.",
+  "exchanges": [
+    {
+      "code": "HKEX",
+      "name": "Hong Kong Exchanges and Clearing",
+      "timezone": "Asia/Hong_Kong",
+      "currency": "HKD",
+      "close_time": "16:10",
+      "holidays": [],
+      "assets": [
+        {"symbol": "0700.HK", "name": "Tencent Holdings", "aliases": ["0700.HK", "00700", "0700", "Tencent", "騰訊", "腾讯"], "search_terms": ["Tencent", "騰訊", "0700"]},
+        {"symbol": "9988.HK", "name": "Alibaba Group", "aliases": ["9988.HK", "09988", "9988", "Alibaba", "阿里巴巴", "阿里"], "search_terms": ["Alibaba", "阿里巴巴", "9988"]},
+        {"symbol": "0005.HK", "name": "HSBC Holdings", "aliases": ["0005.HK", "00005", "HSBC", "滙豐", "匯豐", "汇丰"], "search_terms": ["HSBC", "滙豐", "0005"]},
+        {"symbol": "1299.HK", "name": "AIA Group", "aliases": ["1299.HK", "01299", "1299", "AIA", "友邦"], "search_terms": ["AIA Group", "友邦", "1299"]},
+        {"symbol": "3690.HK", "name": "Meituan", "aliases": ["3690.HK", "03690", "3690", "Meituan", "美團", "美团"], "search_terms": ["Meituan", "美團", "3690"]}
+      ],
+      "sources": [
+        {
+          "name": "lihkg", 
+          "kind": "apify", 
+          "enabled": true, 
+          "actor_id": "claude_code_reviewer/lihkg-scraper-en", 
+          "language": "zh-HK", 
+          "source_timezone": "Asia/Hong_Kong", 
+          "max_items": 500,
+          "input_template": {
+            "mode": "search",
+            "keywords": "{queries}",
+            "maxThreads": "{max_items}"
+          },
+          "field_map": {
+            "thread": {
+              "id": "thread_id",
+              "text": "content",
+              "timestamp": "created_at",
+              "author_id": "author",
+              "likes": "like_count",
+              "reposts": null,
+              "views": null,
+              "url": "thread_url",
+              "followers": null,
+              "reply_count": "reply_count",
+              "title": "title",
+              "own_text": "own_text"
+            },
+            "reply": {
+              "id": null,
+              "text": "content",
+              "timestamp": "created_at",
+              "author_id": "author",
+              "likes": "like_count",
+              "reposts": null,
+              "views": null,
+              "url": null,
+              "followers": null,
+              "own_text": "own_text"
+            }
+          },
+          "notes": "LIHKG scraper with threads and replies. Actor returns both thread records and individual reply records."
+        },
+        {
+          "name": "xueqiu",
+          "kind": "apify",
+          "enabled": true,
+          "actor_id": "luminous_luxury/xueqiu-stock-scraper",
+          "language": "zh-CN",
+          "source_timezone": "Asia/Shanghai",
+          "max_items": 20,
+          "per_ticker": true,
+          "input_template": {
+            "limit": "{max_items}",
+            "stock_code": "{stock_code}"
+          },
+          "field_map": {
+            "id": "url",
+            "text": "title",
+            "timestamp": "time",
+            "author_id": "user",
+            "followers": "followers",
+            "likes": "likes",
+            "reposts": null,
+            "views": null,
+            "url": "url",
+            "comments": "comments"
+          },
+          "notes": "Xueqiu stock discussions. Actor accepts ONE stock code per execution. Application must execute separately for each ticker."
+        }
+      ]
+    },
+    {
+      "code": "KRX",
+      "name": "Korea Exchange",
+      "timezone": "Asia/Seoul",
+      "currency": "KRW",
+      "close_time": "15:30",
+      "holidays": [],
+      "assets": [
+        {"symbol": "005930.KS", "name": "Samsung Electronics", "aliases": ["005930.KS", "005930", "Samsung Electronics", "삼성전자", "삼전"], "search_terms": ["삼성전자", "Samsung Electronics", "005930"]},
+        {"symbol": "000660.KS", "name": "SK hynix", "aliases": ["000660.KS", "000660", "SK hynix", "SK하이닉스", "하이닉스"], "search_terms": ["SK하이닉스", "SK hynix", "000660"]},
+        {"symbol": "005380.KS", "name": "Hyundai Motor", "aliases": ["005380.KS", "005380", "Hyundai Motor", "현대차", "현대자동차"], "search_terms": ["현대차", "Hyundai Motor", "005380"]},
+        {"symbol": "373220.KS", "name": "LG Energy Solution", "aliases": ["373220.KS", "373220", "LG Energy Solution", "LG에너지솔루션"], "search_terms": ["LG에너지솔루션", "LG Energy Solution", "373220"]},
+        {"symbol": "068270.KS", "name": "Celltrion", "aliases": ["068270.KS", "068270", "Celltrion", "셀트리온"], "search_terms": ["셀트리온", "Celltrion", "068270"]}
+      ],
+      "sources": [
+        {
+          "name": "naver_stock_discussion",
+          "kind": "apify",
+          "enabled": true,
+          "actor_id": "hgservices/naver-stock-discussion-scraper",
+          "language": "ko",
+          "source_timezone": "Asia/Seoul",
+          "max_items": 20,
+          "input_template": {
+            "stocks": "{stock_codes}",
+            "limit": 20
+          },
+          "field_map": {
+            "id": "url",
+            "text": "title",
+            "title": "title",
+            "content": "text",
+            "timestamp": "writtenAt",
+            "author_id": "author",
+            "followers": null,
+            "likes": "likes",
+            "dislikes": "dislikes",
+            "reposts": null,
+            "views": "views",
+            "url": "url",
+            "stock_name": "stockName",
+            "is_holder_verified": "isHolderVerified"
+          },
+          "notes": "Naver Stock Discussion scraper. Accepts multiple stock codes in stocks array. Returns Korean stock discussions with holder verification."
+        },
+        {"name": "daum_finance", "kind": "apify", "enabled": false, "actor_id": null, "language": "ko", "source_timezone": "Asia/Seoul", "max_items": 500,
+         "input_template": {}, "field_map": {},
+         "notes": "PLACEHOLDER. Second KR social source; not operational until an actor is selected and tested."}
+      ]
+    }
+  ]
+}

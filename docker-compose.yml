@@ -1,0 +1,16 @@
+# PostgreSQL for STORAGE_BACKEND=database. The app itself runs locally (uvicorn); see README.
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: sentiment_agent
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d sentiment_agent"]
+      interval: 5s
+      retries: 10
+volumes:
+  pgdata:

@@ -1,0 +1,48 @@
+# Render deployment configuration
+# https://render.com/docs/blueprint-spec
+
+databases:
+  - name: sentiment-db
+    databaseName: sentiment_agent
+    user: sentiment_user
+    plan: free  # Change to paid plan for production persistence
+
+services:
+  - type: web
+    name: heng-seng-sentiment-api
+    runtime: python
+    plan: free  # Change to paid plan for production
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: STORAGE_BACKEND
+        value: postgres
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sentiment-db
+          property: connectionString
+      - key: APIFY_API_TOKEN
+        sync: false  # Set in Render dashboard
+      - key: EXA_API_KEY
+        sync: false  # Set in Render dashboard
+      - key: GEMINI_API_KEY
+        sync: false  # Set in Render dashboard
+      - key: GEMINI_MODEL
+        value: models/gemini-2.5-flash
+      - key: FINBERT_ENABLED
+        value: false
+      - key: MARKET_DATA_PROVIDER
+        value: yfinance
+      - key: MODEL_PATH
+        value: model_artifacts/random_forest_model.joblib
+      - key: MODEL_METADATA_PATH
+        value: model_artifacts/model_metadata.json
+      - key: DEFAULT_LOOKBACK_DAYS
+        value: 10
+      - key: CORS_ORIGINS
+        sync: false  # Set to your Vercel frontend URL in Render dashboard
+    healthCheckPath: /health
