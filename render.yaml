@@ -14,6 +14,7 @@ services:
     plan: free  # Change to paid plan for production
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    pythonVersion: "3.12"  # Specify Python version for compatibility
     envVars:
       - key: APP_ENV
         value: production
